@@ -1,0 +1,15 @@
+//printLinkedlist function
+/*For your reference
+singly LinkedListNode{
+int data;
+SinglyLinkedListNode next;
+}
+*/
+static void printLinkedList(SinglyLinkedList Node head)
+{
+while(head!=null)
+{
+System.out.println(head.data);
+head=head.next;
+}
+}
