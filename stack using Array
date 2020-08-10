@@ -1,0 +1,307 @@
+
+import java.util.Scanner;
+
+public class CircularLinkedList {
+
+
+	public static Node<Integer> head=null;
+    public static Node<Integer> tail=null;
+
+
+    public static Node<Integer> InsertAtBegining()
+    {
+    	Scanner s = new Scanner(System.in);
+		int data = s.nextInt();
+		Node<Integer> last=null;
+		while(data!=-1)
+		{
+			Node<Integer> newNode = new Node<Integer>(data);
+
+			if(head==null)
+			{
+				head= newNode;
+				tail = newNode;
+				last=newNode;
+
+			}
+			else
+			{   
+
+				head= newNode; 
+				head.next=tail;
+				tail=head;
+			} 
+
+			data = s.nextInt();
+		}
+		last.next=head;
+		return head;
+    }
+
+
+	public static Node<Integer> InsertAtEnd()
+	{
+
+		Scanner s = new Scanner(System.in);
+		int data = s.nextInt();
+		while(data!=-1)
+		{
+			Node<Integer> newNode = new Node<Integer>(data);
+
+			if(head==null)
+			{
+				head= newNode;
+				tail = newNode;
+			}
+			else
+			{
+				tail.next= newNode; 
+				tail= newNode;
+				tail.next=head;
+			} 
+
+			data = s.nextInt();
+		}
+		return head;
+	}
+
+
+	public static void  print(Node<Integer> head)
+	{
+		if(head==null)
+		{
+			return;
+		}
+
+		Node<Integer> tail = head;
+
+		do
+		{
+			System.out.println(tail.data);
+			tail=tail.next;
+
+		}while(tail!=head);
+
+
+	}
+
+
+
+	public static void main(String[] args) {
+
+		//Node<Integer> head = InsertAtEnd();
+
+		Node<Integer> head = InsertAtBegining();
+
+		print(head);
+
+
+
+
+
+	}
+
+}
+ 
+class Node
+{
+	int data;
+	Node prev;
+	Node next;
+
+	Node(int data)
+	{
+		this.data=data;
+	}
+}
+
+
+public class DoublyLinkedList {
+
+	static Node head;
+
+	public static void insert(int data)
+	{
+		Node newNode = new Node(data);
+
+		newNode.next=head;
+		newNode.prev=null;
+
+		if(head!=null)
+		{
+			head.prev=newNode;
+		}
+
+		head= newNode;
+	}
+
+	public static void delete(Node del)
+	{
+		if (head == null || del == null) { 
+            return; 
+        } 
+
+		 if (head == del) { 
+	            head = del.next; 
+	        } 
+
+		 if (del.next != null) { 
+	            del.next.prev = del.prev; 
+	        } 
+
+		 if (del.prev != null) { 
+	            del.prev.next = del.next; 
+	        } 
+
+		 return;
+	}
+
+
+	public static void main(String[] args) {
+
+
+		insert(2);
+		delete(head.next);
+
+
+	}
+
+}
+public class InsertAfterCertainNodes {
+
+}
+
+public class PallindromeUsingStacks {
+
+	public static boolean isPallin(String a)
+	{
+		Stack<Character> stack = new Stack<>();
+
+		int l = a.length();
+
+		int i=0;
+		int mid=l/2;
+
+		for(i=0;i<mid;i++)
+		{
+			stack.push(a.charAt(i));
+		}
+
+		if(l%2!=0)
+		{
+			i++;
+		}
+
+		while(i<l)
+		{
+			char k = stack.pop();
+
+			if(k!=a.charAt(i))
+			{
+				return false;
+			}
+			i++;
+		}
+
+		return true;
+
+
+	}
+
+
+	public static void main(String[] args) {
+
+
+		String a="abal";
+
+		if(isPallin(a))
+		{
+			System.out.println("Yes");
+		}
+		else
+		{
+			System.out.println("No");
+		}
+
+
+	}
+}
+
+public class StackUsingArray {
+
+	private int data[]; 
+	private int top;
+
+	public StackUsingArray() {
+		data = new int[10];
+		top=-1;
+	}
+
+	public StackUsingArray(int capacity) {
+		data = new int[capacity];
+		top=-1;
+	}
+
+	public boolean isEmpty()
+	{
+		return (top==-1);
+
+	}
+
+	public int size()
+	{
+		return top+1;
+	}
+
+    public int top() throws StackEmptyException
+    {    
+    	if(size()==0)
+    	{
+    		StackEmptyException e = new StackEmptyException();	
+    		throw e;
+    	}
+    	return data[top];
+    }
+
+    public void push(int elem) throws StackFullException
+    {   
+    	if(size()==data.length)
+    	{
+    		// stack full
+
+//    		StackFullException e = new StackFullException();
+//    		throw e;
+
+    		doubleCapacity();	
+    	}
+
+
+    	top++;
+    	data[top]=elem;
+    }
+
+    private void doubleCapacity()
+    {
+    	int temp[] = data;
+
+    	data = new int[temp.length*2];
+
+    	for(int i=0;i<=top;i++)
+    	{
+    		data[i]=temp[i];
+    	}
+    }
+    public int pop() throws StackEmptyException
+    {  
+    	if(size()==0)
+    	{
+    		StackEmptyException e = new StackEmptyException();	
+    		throw e;
+    	}
+
+    	int temp = data[top];
+    	top--;
+    	return temp;
+    }
+
+}
